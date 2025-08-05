@@ -80,3 +80,6 @@ spec:
             - |
               export KAFKA_CFG_NODE_ID=$(hostname | grep -oE '[0-9]+$')
               /opt/bitnami/scripts/kafka/entrypoint.sh /opt/bitnami/scripts/kafka/run.sh
+
+      imagePullSecrets:
+        - name: regcred

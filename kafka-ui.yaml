@@ -38,3 +38,5 @@ spec:
               value: "kafka:9092"
             - name: KAFKA_CLUSTERS_0_ZOOKEEPER
               value: ""
+      imagePullSecrets:
+        - name: regcred
