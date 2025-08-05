@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: react-app
-          image: kimlong92018892/react-app:latest
+          image: kimlong92018892/react-app-fe
           ports:
             - containerPort: 5173
       imagePullSecrets:
