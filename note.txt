@@ -1,1 +1,3 @@
 kubectl apply -f kafka-ui.yaml
+
+kubectl delete all --all
