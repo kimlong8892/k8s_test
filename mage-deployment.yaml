@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mage
+  template:
+    metadata:
+      labels:
+        app: mage
+    spec:
+      containers:
+        - name: mage
+          image: mageai/mageai:latest
+          command: ["mage", "start", "mage_project"]
+          ports:
+            - containerPort: 6789
+          env:
+            - name: POSTGRES_DB
+              value: "mydb"
+            - name: POSTGRES_USER
+              value: "myuser"
+            - name: POSTGRES_PASSWORD
+              value: "mypassword"
+            - name: POSTGRES_HOST
+              value: "postgres"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: MAGE_DATABASE_CONNECTION_URL
+              value: "postgresql+psycopg2://myuser:mypassword@postgres:5432/mydb"
+          volumeMounts:
+            - name: mage-data
+              mountPath: /home/src
+      volumes:
+        - name: mage-data
+          emptyDir: {}  # Dùng bộ nhớ tạm, bạn có thể đổi sang PVC nếu cần
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mage
+spec:
+  selector:
+    app: mage
+  type: NodePort
+  ports:
+    - port: 6789
+      targetPort: 6789
+      nodePort: 30678  # Truy cập Mage tại: http://<NODE_IP>:30678
