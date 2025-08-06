@@ -1,1 +1,3 @@
+psycopg2
 flask
+confluent-kafka
