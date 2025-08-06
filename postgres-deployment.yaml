@@ -53,9 +53,10 @@ kind: Service
 metadata:
   name: postgres
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: postgres
   ports:
     - port: 5432
       targetPort: 5432
+      nodePort: 30032  # Phải nằm trong khoảng 30000–32767
